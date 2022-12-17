@@ -1,4 +1,4 @@
-# Foodie
+# Foodiee
 
 ## Introduction
 
