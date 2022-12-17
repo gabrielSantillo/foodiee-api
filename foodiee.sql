@@ -46,6 +46,34 @@ LOCK TABLES `client` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `client_session`
+--
+
+DROP TABLE IF EXISTS `client_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `client_session` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` int(10) unsigned NOT NULL,
+  `token` varchar(1000) COLLATE utf8mb4_bin NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `client_session_un` (`token`) USING HASH,
+  KEY `client_session_FK` (`client_id`),
+  CONSTRAINT `client_session_FK` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `client_session`
+--
+
+LOCK TABLES `client_session` WRITE;
+/*!40000 ALTER TABLE `client_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `client_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'foodiee'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +86,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-17 14:04:38
+-- Dump completed on 2022-12-17 14:08:26
