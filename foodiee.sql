@@ -107,6 +107,34 @@ LOCK TABLES `restaurant` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `restaurant_images`
+--
+
+DROP TABLE IF EXISTS `restaurant_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurant_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `restaurant_id` int(10) unsigned NOT NULL,
+  `file_name` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `restaurant_images_FK` (`restaurant_id`),
+  CONSTRAINT `restaurant_images_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `restaurant_images`
+--
+
+LOCK TABLES `restaurant_images` WRITE;
+/*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `restaurant_session`
 --
 
@@ -147,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-17 14:25:42
+-- Dump completed on 2022-12-17 14:29:15
