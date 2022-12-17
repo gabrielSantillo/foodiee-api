@@ -74,6 +74,67 @@ LOCK TABLES `client_session` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `restaurant`
+--
+
+DROP TABLE IF EXISTS `restaurant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurant` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `address` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `phone_number` varchar(11) COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(1000) COLLATE utf8mb4_bin NOT NULL,
+  `salt` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `bio` varchar(150) COLLATE utf8mb4_bin NOT NULL,
+  `city` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `restaurant_un` (`email`),
+  UNIQUE KEY `restaurant_un_phone_number` (`phone_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `restaurant`
+--
+
+LOCK TABLES `restaurant` WRITE;
+/*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
+/*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `restaurant_session`
+--
+
+DROP TABLE IF EXISTS `restaurant_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurant_session` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `restaurant_id` int(10) unsigned NOT NULL,
+  `token` varchar(1000) COLLATE utf8mb4_bin NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `restaurant_session_un` (`token`) USING HASH,
+  KEY `restaurant_session_FK` (`restaurant_id`),
+  CONSTRAINT `restaurant_session_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `restaurant_session`
+--
+
+LOCK TABLES `restaurant_session` WRITE;
+/*!40000 ALTER TABLE `restaurant_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `restaurant_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'foodiee'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -86,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-17 14:08:26
+-- Dump completed on 2022-12-17 14:25:42
