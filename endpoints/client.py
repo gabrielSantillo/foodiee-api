@@ -1,6 +1,6 @@
 from uuid import uuid4
 from flask import request, make_response
-from apihelpers import check_endpoint_info
+from apihelpers import check_endpoint_info, check_data_sent
 import secrets
 import json
 from dbhelpers import run_statement
@@ -37,3 +37,26 @@ def get():
         return make_response(json.dumps("Sorry, this client doesn't exist.", default=str), 400)
     else:
         return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+
+def patch():
+    is_valid = check_endpoint_info(request.headers, ['token'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 500)
+
+    client_info = run_statement('CALL get_client_by_token(?)', [request.json.get('token')])
+    if(type(client_info) != list or len(client_info) != 1):
+        return make_response(json.dumps(client_info, default=str), 400)
+    
+    # update_client_info = uci
+    uci = check_data_sent(request.json, client_info[0], ['first_name', 'last_name', 'email', 'password', 
+    'username'])
+
+    results = run_statement('CALL edit_client(?,?,?,?,?,?)', [uci['first_name'], uci['last_name'], uci['email'], 
+    uci['password'], uci['username'], request.headers.get('token')])
+
+    if(type(results) == list and results[0]['row_updated'] == 1):
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(type(results) == list and results[0]['row_updated'] == 0):
+        return make_response(json.dumps(results[0],default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)

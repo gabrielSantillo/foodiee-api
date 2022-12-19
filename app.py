@@ -16,6 +16,10 @@ def post_client():
 def get_client():
     return endpoints.client.get()
 
+@app.patch('/api/client')
+def patch_client():
+    return endpoints.client.patch()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
