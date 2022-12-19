@@ -1,10 +1,16 @@
 from flask import Flask
 from dbcreds import production_mode
+import endpoints.client
+from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
 app = Flask(__name__)
 CORS(app)
 
+############### CLIENT ###############
+@app.post('/api/client')
+def post_client():
+    return endpoints.client.post() 
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
