@@ -20,6 +20,10 @@ def get_client():
 def patch_client():
     return endpoints.client.patch()
 
+@app.delete('/api/client')
+def delete_client():
+    return endpoints.client.delete()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
@@ -30,4 +34,5 @@ else:
     from flask_cors import CORS
     CORS(app)
     print("Running in Testing Mode")
+
     app.run(debug=True)
