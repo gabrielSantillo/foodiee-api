@@ -10,7 +10,11 @@ CORS(app)
 ############### CLIENT ###############
 @app.post('/api/client')
 def post_client():
-    return endpoints.client.post() 
+    return endpoints.client.post()
+
+@app.get('/api/client')
+def get_client():
+    return endpoints.client.get()
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
