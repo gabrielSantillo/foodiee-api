@@ -221,7 +221,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES (1,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','testing123','55384f46de6a484598cd18637e73eacb','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 12:26:14');
+INSERT INTO `restaurant` VALUES (1,'testing','2564 17th Avenue','8888888888','fiveguys@gmail.com','testing','55384f46de6a484598cd18637e73eacb','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 12:26:14');
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +351,7 @@ begin
 	insert into restaurant_session(restaurant_id, token)
 	values (last_insert_id(), token_input);
 
-	select rs.restaurant_id as restaurant_id, rs.token as token 
+	select rs.restaurant_id as restaurant_id, convert(rs.token using utf8) as token 
 	from restaurant_session rs 
 	where rs.id = last_insert_id(); 
 	
@@ -485,6 +485,43 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `edit_restaurant` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_restaurant`(
+name_input varchar(50),
+address_input varchar(100),
+phone_number_input varchar(11),
+email_input varchar(100),
+password_input varchar(1000),
+bio_input varchar(150),
+city_input varchar(50),
+token_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	update restaurant r
+	inner join restaurant_session rs on rs.restaurant_id = r.id 
+	set r.name = name_input, r.address = address_input, r.phone_number = phone_number_input, r.email = email_input,
+	r.password = password_input, r.bio = bio_input, r.city = city_input
+	where rs.token = token_input;
+
+	select row_count() as row_updated;
+	
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_client` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -522,7 +559,54 @@ begin
 	convert(c.email using utf8) as email, convert(c.password using utf8) as password, convert(c.username using utf8) as username,
 	convert(c.created_at using utf8) as created_at
 	from client c
-	inner join client_session cs on cs.client_id = c.id;
+	inner join client_session cs on cs.client_id = c.id
+	where cs.token = token_input;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_restaurant_by_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_restaurant_by_id`(restaurant_id int unsigned)
+begin
+	select convert(r.name using utf8) as name, convert(r.address using utf8) as address, 
+	convert(r.phone_number using utf8) as phone_number, convert(r.email using utf8) as email, convert(r.bio using utf8) as bio,
+	convert(r.city using utf8) as city
+	from restaurant r
+	where r.id = restaurant_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_restaurant_by_token` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_restaurant_by_token`(token_input varchar(100))
+begin
+	select convert(r.name using utf8) as name, convert(r.address using utf8) as address, convert(r.phone_number using utf8) as phone_number,
+	convert(r.email using utf8) as email, convert(r.password using utf8) as password, convert(r.bio using utf8) as bio, convert(r.city using utf8) as city   
+	from restaurant r
+	inner join restaurant_session rs on rs.token = token_input
+	where rs.token = token_input;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -539,4 +623,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-20 12:26:50
+-- Dump completed on 2022-12-20 15:06:55
