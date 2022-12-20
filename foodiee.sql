@@ -212,7 +212,7 @@ CREATE TABLE `restaurant` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `restaurant_un` (`email`),
   UNIQUE KEY `restaurant_un_phone_number` (`phone_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +221,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES (1,'testing','2564 17th Avenue','8888888888','fiveguys@gmail.com','testing','55384f46de6a484598cd18637e73eacb','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 12:26:14');
+INSERT INTO `restaurant` VALUES (4,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','*F910A54617C748B71BEBECB572DF8EFD9691470B','6cd8672b06114be1a2e570d9f65ce75a','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 16:44:19');
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,10 +263,10 @@ DROP TABLE IF EXISTS `restaurant_session`;
 CREATE TABLE `restaurant_session` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(10) unsigned NOT NULL,
-  `token` varchar(1000) COLLATE utf8mb4_bin NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `token` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `restaurant_session_un` (`token`) USING HASH,
+  UNIQUE KEY `restaurant_session_un` (`token`),
   KEY `restaurant_session_FK` (`restaurant_id`),
   CONSTRAINT `restaurant_session_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -278,7 +278,7 @@ CREATE TABLE `restaurant_session` (
 
 LOCK TABLES `restaurant_session` WRITE;
 /*!40000 ALTER TABLE `restaurant_session` DISABLE KEYS */;
-INSERT INTO `restaurant_session` VALUES (1,1,'2e406d50f6b9c61ecd3a5a815ff4732c3c5f43db9fd183cd7f2ae737f09c470d','2022-12-20 12:26:14');
+INSERT INTO `restaurant_session` VALUES (1,4,'65846e8d2f50b3344fcdc472c79e5f8e274df06a78418b86d0a2ff5069abceb5','2022-12-20 16:47:37');
 /*!40000 ALTER TABLE `restaurant_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,7 +346,7 @@ token_input varchar(100)
     MODIFIES SQL DATA
 begin
 	insert into restaurant(name, address, phone_number, email, password, salt, bio, city)
-	values (name_input, address_input, phone_number_input, email_input, password_input, salt_input, bio_input, city_input);
+	values (name_input, address_input, phone_number_input, email_input, PASSWORD(CONCAT(password_input, salt_input)), salt_input, bio_input, city_input);
 
 	insert into restaurant_session(restaurant_id, token)
 	values (last_insert_id(), token_input);
@@ -441,6 +441,35 @@ begin
 	where cs.token = token_input;
 
 	select row_count() as row_updated;
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_restaurant` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_restaurant`(
+password_input varchar(1000),
+token_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	delete r from restaurant r
+	inner join restaurant_session rs on rs.restaurant_id = r.id
+	where rs.token = token_input and password = password(concat(password_input ,(select salt where rs.token = token_input)));
+
+	select row_count() as row_updated;
+	
 	commit;
 END ;;
 DELIMITER ;
@@ -613,6 +642,40 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `restaurant_login` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `restaurant_login`(
+email_input varchar(100),
+password_input varchar(1000),
+token_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	insert into restaurant_session(restaurant_id, token, created_at)
+	select r.id, token_input, now()
+	from restaurant r
+	where r.email = email_input and
+	r.password = PASSWORD(concat(password_input, (select salt from restaurant r where r.email = email_input)));
+
+	select rs.restaurant_id, convert(rs.token using utf8) as token
+	from restaurant_session rs
+	where rs.token = token_input;
+	
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -623,4 +686,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-20 15:06:55
+-- Dump completed on 2022-12-20 16:48:19
