@@ -39,3 +39,26 @@ def get():
         return make_response(json.dumps("Wrong restaurant id.", default=str), 400)
     else:
         return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+
+
+def patch():
+    is_valid = check_endpoint_info(request.headers, ['token'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+
+    # restaurant info = ri
+    ri = run_statement('CALL get_restaurant_by_token(?)', [request.headers.get('token')])
+
+    # update restaurant info = uri
+    uri = check_data_sent(request.json, ri[0], ['name', 'address', 'phone_number', 'email', 'password', 'bio', 
+    'city'])
+
+    results = run_statement('CALL edit_restaurant(?,?,?,?,?,?,?,?)', [uri['name'], uri['address'], 
+    uri['phone_number'], uri['email'], uri['password'], uri['bio'], uri['city'], request.headers.get('token')])
+
+    if(type(results) == list and results[0]['row_updated'] == 1):
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(type(results) == list and results[0]['row_updated'] == 0):
+        return make_response(json.dumps(results[0], default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)

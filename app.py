@@ -44,6 +44,10 @@ def post_restaurant():
 def get_restaurant():
     return endpoints.restaurant.get()
 
+@app.patch('/api/restaurant')
+def patch_restaurant():
+    return endpoints.restaurant.patch()
+
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
     print("Running in Production Mode")
