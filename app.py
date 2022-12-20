@@ -30,6 +30,10 @@ def delete_client():
 def post_client_login():
     return endpoints.client_login.post()
 
+@app.delete('/api/client-login')
+def delete_client_token():
+    return endpoints.client_login.delete()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
