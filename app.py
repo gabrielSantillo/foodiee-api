@@ -68,6 +68,10 @@ def delete_restaurant_login():
 def post_restaurant_images():
     return endpoints.restaurant_images.post()
 
+@app.get('/api/restaurant-images')
+def get_restaurant_images():
+    return endpoints.restaurant_images.get()
+
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode

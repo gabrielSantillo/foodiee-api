@@ -30,3 +30,18 @@ def post():
         return make_response(json.dumps(results, default=str), 400)
     else:
         return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)
+
+
+def get():
+    is_valid = check_endpoint_info(request.args, ['file_name'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+
+    results = run_statement('CALL get_restaurant_images(?)', [request.args.get('file_name')])
+
+    if(type(results) != list):
+        return make_response(json.dumps(results, default=str), 500)
+    elif(len(results) == 0):
+        return make_response(json.dumps("Wrong file name.", default=str), 400)
+
+    return send_from_directory('restaurant_images', results[0]['file_name'])
