@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login
+import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images
 from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
@@ -61,6 +61,14 @@ def post_restaurant_login():
 @app.delete('/api/restaurant-login')
 def delete_restaurant_login():
     return endpoints.restaurant_login.delete()
+
+
+############### RESTAURANT IMAGES ###############
+@app.post('/api/restaurant-images')
+def post_restaurant_images():
+    return endpoints.restaurant_images.post()
+
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
