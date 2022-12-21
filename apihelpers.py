@@ -17,7 +17,7 @@ def save_file(file):
         try:
             # Use built-in functions to save the file in the images folder
             # You can put any path you want, in my example I just need them in the images folder right here
-            file.save(os.path.join('images', filename))
+            file.save(os.path.join('restaurant_images', filename))
             # Return the filename so it can be stored in the DB
             return filename
         except Exception as error:
