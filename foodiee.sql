@@ -278,7 +278,6 @@ CREATE TABLE `restaurant_session` (
 
 LOCK TABLES `restaurant_session` WRITE;
 /*!40000 ALTER TABLE `restaurant_session` DISABLE KEYS */;
-INSERT INTO `restaurant_session` VALUES (1,4,'65846e8d2f50b3344fcdc472c79e5f8e274df06a78418b86d0a2ff5069abceb5','2022-12-20 16:47:37');
 /*!40000 ALTER TABLE `restaurant_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -467,6 +466,31 @@ begin
 	delete r from restaurant r
 	inner join restaurant_session rs on rs.restaurant_id = r.id
 	where rs.token = token_input and password = password(concat(password_input ,(select salt where rs.token = token_input)));
+
+	select row_count() as row_updated;
+	
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_restaurant_token` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_restaurant_token`(token_input varchar(100))
+    MODIFIES SQL DATA
+begin
+	delete rs from restaurant_session rs
+	where rs.token = token_input;
 
 	select row_count() as row_updated;
 	
@@ -686,4 +710,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-20 16:48:19
+-- Dump completed on 2022-12-20 18:14:44
