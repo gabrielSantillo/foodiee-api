@@ -241,7 +241,7 @@ CREATE TABLE `restaurant_images` (
   PRIMARY KEY (`id`),
   KEY `restaurant_images_FK` (`restaurant_id`),
   CONSTRAINT `restaurant_images_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,6 +250,7 @@ CREATE TABLE `restaurant_images` (
 
 LOCK TABLES `restaurant_images` WRITE;
 /*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
+INSERT INTO `restaurant_images` VALUES (1,4,'f6ba069df5b346d0bbd5d7a719409349.png','profile','2022-12-21 11:42:50');
 /*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -742,4 +743,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-21 11:10:16
+-- Dump completed on 2022-12-21 11:44:05
