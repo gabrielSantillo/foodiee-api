@@ -42,7 +42,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*A4D7878C14F33DF85C14DBAACAC137B8D5052C5E','5d0be712be0441f58f9ea293b522903d','gasantillo','2022-12-19 11:28:53');
+INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*E3E7443742C4AFE71DFCDE8C184F08B7927EA64A','ab076b3f87c146ca9c0deecc329105d4','gasantillo','2022-12-19 11:28:53');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -571,6 +571,43 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `edit_client_with_password` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_client_with_password`(
+first_name_input varchar(30),
+last_name_input varchar(30),
+email_input varchar(100),
+password_input varchar(1000),
+salt_input varchar(100),
+username_input varchar(50),
+token_input varchar(1000)
+)
+    MODIFIES SQL DATA
+begin
+	
+	update client c
+	inner join client_session cs on cs.client_id = c.id
+	set c.first_name = first_name_input, c.last_name = last_name_input, c.email = email_input,
+	c.password = PASSWORD(CONCAT(password_input, salt_input)), c.salt = salt_input, c.username = username_input
+	where cs.token = token_input;
+
+	select row_count() as row_updated;
+	
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `edit_restaurant` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -828,4 +865,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-21 20:41:26
+-- Dump completed on 2022-12-22 11:42:34
