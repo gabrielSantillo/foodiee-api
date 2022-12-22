@@ -117,13 +117,13 @@ CREATE TABLE `menu_item` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(10) unsigned NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `description` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `description` varchar(200) COLLATE utf8mb4_bin NOT NULL,
   `price` float NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `menu_item_FK` (`restaurant_id`),
   CONSTRAINT `menu_item_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,6 +132,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
+INSERT INTO `menu_item` VALUES (1,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-22 12:34:28');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,6 +317,37 @@ begin
 	select cs.client_id as client_id, convert(cs.token using utf8) as token 
 	from client_session cs 
 	where cs.id = last_insert_id() ;
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `add_menu_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_menu_item`(
+name_input varchar(50),
+description_input varchar(200),
+price_input float,
+token_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	insert into menu_item(restaurant_id, name, description, price, created_at)
+	select rs.restaurant_id, name_input, description_input, price_input, now()
+	from restaurant_session rs
+	where rs.token = token_input;
+
+	select last_insert_id() as item_id;
 	commit;
 END ;;
 DELIMITER ;
@@ -904,4 +936,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-22 12:04:27
+-- Dump completed on 2022-12-22 12:36:01
