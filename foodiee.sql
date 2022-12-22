@@ -148,11 +148,11 @@ CREATE TABLE `menu_item_images` (
   `menu_item_id` int(10) unsigned NOT NULL,
   `file_name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
   `description` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `menu_item_images_FK` (`menu_item_id`),
   CONSTRAINT `menu_item_images_FK` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,6 +161,7 @@ CREATE TABLE `menu_item_images` (
 
 LOCK TABLES `menu_item_images` WRITE;
 /*!40000 ALTER TABLE `menu_item_images` DISABLE KEYS */;
+INSERT INTO `menu_item_images` VALUES (1,1,'33c521fb656144dda2b6f008a80815cb.png','cheeseburger picture','2022-12-22 16:28:09');
 /*!40000 ALTER TABLE `menu_item_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,6 +349,38 @@ begin
 	where rs.token = token_input;
 
 	select last_insert_id() as menu_item_id;
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `add_menu_item_image` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_menu_item_image`(
+menu_item_id_input int unsigned,
+file_name_input varchar(100),
+description_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	insert into menu_item_images(menu_item_id, file_name, description)
+	values (menu_item_id_input, file_name_input, description_input);
+
+	select last_insert_id() as image_id, convert(mii.file_name using utf8) as file_name,
+	convert(mii.description using utf8) as description 
+	from menu_item_images mii
+	where mii.id = last_insert_id(); 
+	
 	commit;
 END ;;
 DELIMITER ;
@@ -1048,4 +1081,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-22 15:59:27
+-- Dump completed on 2022-12-22 16:29:42
