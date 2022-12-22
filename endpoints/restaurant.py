@@ -50,11 +50,18 @@ def patch():
     ri = run_statement('CALL get_restaurant_by_token(?)', [request.headers.get('token')])
 
     # update restaurant info = uri
-    uri = check_data_sent(request.json, ri[0], ['name', 'address', 'phone_number', 'email', 'password', 'bio', 
-    'city'])
+    uri = check_data_sent(request.json, ri[0], ['name', 'address', 'phone_number', 'email', 
+    'password', 'bio', 'city'])
 
-    results = run_statement('CALL edit_restaurant(?,?,?,?,?,?,?,?)', [uri['name'], uri['address'], 
-    uri['phone_number'], uri['email'], uri['password'], uri['bio'], uri['city'], request.headers.get('token')])
+    if(request.json.get('password') != None):
+        salt = uuid4().hex
+        results = run_statement('CALL edit_restaurant_with_password(?,?,?,?,?,?,?,?,?)', 
+        [uri['name'], uri['address'], uri['phone_number'], uri['email'], uri['password'], salt, 
+        uri['bio'], uri['city'], request.headers.get('token')])
+    else:
+        results = run_statement('CALL edit_restaurant(?,?,?,?,?,?,?,?)', [uri['name'], 
+        uri['address'], uri['phone_number'], uri['email'], uri['password'], uri['bio'], uri['city'], 
+        request.headers.get('token')])
 
     if(type(results) == list and results[0]['row_updated'] == 1):
         return make_response(json.dumps(results[0], default=str), 200)
