@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item
+import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images
 from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
@@ -94,6 +94,11 @@ def patch_menu_item():
 def delete_menu_item():
     return endpoints.menu_item.delete()
 
+
+############### MENU ITEM IMAGES ###############
+@app.post('/api/menu-item-images')
+def post_menu_item_image():
+    return endpoints.menu_item_images.post()
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
