@@ -90,6 +90,10 @@ def get_all_menu_items():
 def patch_menu_item():
     return endpoints.menu_item.patch()
 
+@app.delete('/api/menu-item')
+def delete_menu_item():
+    return endpoints.menu_item.delete()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

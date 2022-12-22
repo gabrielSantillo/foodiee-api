@@ -71,3 +71,21 @@ def patch():
     else:
         return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)
     
+
+def delete():
+    is_valid_header = check_endpoint_info(request.headers, ['token'])
+    if(is_valid_header != None):
+        return make_response(json.dumps(is_valid_header, default=str), 400)
+    
+    is_valid = check_endpoint_info(request.json, ['menu_item_id'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+
+    results = run_statement('CALL delete_menu_item(?,?)', [request.json.get('menu_item_id'), request.headers.get('token')])
+
+    if(type(results) == list and results[0]['row_updated'] == 1):
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(type(results) == list and results[0]['row_updated'] == 0):
+        return make_response(json.dumps("Wrong token and/or menu item id.", default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)
