@@ -86,6 +86,10 @@ def post_menu_item():
 def get_all_menu_items():
     return endpoints.menu_item.get()
 
+@app.patch('/api/menu-item')
+def patch_menu_item():
+    return endpoints.menu_item.patch()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
