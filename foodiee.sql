@@ -42,7 +42,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*E3E7443742C4AFE71DFCDE8C184F08B7927EA64A','ab076b3f87c146ca9c0deecc329105d4','gasantillo','2022-12-19 11:28:53');
+INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*F3C1E68102E5F511CAC4C2BAE0211D7FEE6A59CE','68de47580bf64048bd14f88e2621d8ef','gasantillo','2022-12-19 11:28:53');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +93,7 @@ CREATE TABLE `client_session` (
   UNIQUE KEY `client_session_un` (`token`),
   KEY `client_session_FK` (`client_id`),
   CONSTRAINT `client_session_FK` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `client_session` (
 
 LOCK TABLES `client_session` WRITE;
 /*!40000 ALTER TABLE `client_session` DISABLE KEYS */;
-INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26');
+INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26'),(3,1,'0cf15d3d0ad38b9d0a34747e4d210ceaa829a661489ea4475a67d0ad29209ce5','2022-12-22 11:43:20');
 /*!40000 ALTER TABLE `client_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +221,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES (4,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','*F910A54617C748B71BEBECB572DF8EFD9691470B','6cd8672b06114be1a2e570d9f65ce75a','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 16:44:19');
+INSERT INTO `restaurant` VALUES (4,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','*607E112D15E10AF57A06FFE2F2F83E2FE42BBCAE','3dfb2cadab9042a497384cba8413d048','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 16:44:19');
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +270,7 @@ CREATE TABLE `restaurant_session` (
   UNIQUE KEY `restaurant_session_un` (`token`),
   KEY `restaurant_session_FK` (`restaurant_id`),
   CONSTRAINT `restaurant_session_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,7 +279,7 @@ CREATE TABLE `restaurant_session` (
 
 LOCK TABLES `restaurant_session` WRITE;
 /*!40000 ALTER TABLE `restaurant_session` DISABLE KEYS */;
-INSERT INTO `restaurant_session` VALUES (3,4,'4e95449a9033cd656137bd1b4d4302a23dcf159b4becf55801f16c8a51b06488','2022-12-21 10:49:41');
+INSERT INTO `restaurant_session` VALUES (3,4,'4e95449a9033cd656137bd1b4d4302a23dcf159b4becf55801f16c8a51b06488','2022-12-21 10:49:41'),(4,4,'aa437694fb31287dbd4f5879cbe60aee0ac911db537c9b362486bc7cfaec1697','2022-12-22 11:58:01'),(5,4,'589cb0e7b8f3140bd97ea8c16378a1b8f1aadb84c2eb6734e4430d7c2d05b001','2022-12-22 12:02:56');
 /*!40000 ALTER TABLE `restaurant_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -676,6 +676,45 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `edit_restaurant_with_password` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_restaurant_with_password`(
+name_input varchar(50),
+address_input varchar(100),
+phone_number_input varchar(11),
+email_input varchar(100),
+password_input varchar(1000),
+salt_input varchar(100),
+bio_input varchar(150),
+city_input varchar(50),
+token_input varchar(100)
+)
+    MODIFIES SQL DATA
+begin
+	update restaurant r
+	inner join restaurant_session rs on rs.restaurant_id = r.id 
+	set r.name = name_input, r.address = address_input, r.phone_number = phone_number_input, r.email = email_input,
+	r.password = PASSWORD(CONCAT(password_input, salt_input)), r.salt = salt_input, r.bio = bio_input, r.city = city_input
+	where rs.token = token_input;
+
+	select row_count() as row_updated;
+	
+	
+	commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_client` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -865,4 +904,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-22 11:42:34
+-- Dump completed on 2022-12-22 12:04:27
