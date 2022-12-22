@@ -43,16 +43,23 @@ def patch():
     if(is_valid != None):
         return make_response(json.dumps(is_valid, default=str), 500)
 
-    client_info = run_statement('CALL get_client_by_token(?)', [request.json.get('token')])
+    client_info = run_statement('CALL get_client_by_token(?)', [request.headers.get('token')])
     if(type(client_info) != list or len(client_info) != 1):
         return make_response(json.dumps(client_info, default=str), 400)
     
     # update_client_info = uci
-    uci = check_data_sent(request.json, client_info[0], ['first_name', 'last_name', 'email', 'password', 
-    'username'])
+    uci = check_data_sent(request.json, client_info[0], ['first_name', 'last_name', 'email', 
+    'password', 'username'])
 
-    results = run_statement('CALL edit_client(?,?,?,?,?,?)', [uci['first_name'], uci['last_name'], uci['email'], 
-    uci['password'], uci['username'], request.headers.get('token')])
+    if(request.json.get('password') != None):
+        salt = uuid4().hex
+        results = run_statement('CALL edit_client_with_password(?,?,?,?,?,?,?)',[ uci['first_name'], 
+        uci['last_name'], uci['email'], uci['password'], salt, uci['username'], 
+        request.headers.get('token')])
+    else:
+        results = run_statement('CALL edit_client(?,?,?,?,?,?)', [uci['first_name'], 
+        uci['last_name'], uci['email'], uci['password'], uci['username'], 
+        request.headers.get('token')])
 
     if(type(results) == list and results[0]['row_updated'] == 1):
         return make_response(json.dumps(results[0], default=str), 200)
