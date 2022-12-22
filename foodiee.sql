@@ -709,12 +709,17 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_restaurant_images`(file_name_input varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_restaurant_images`(
+file_name_input varchar(100),
+token_input varchar(100)
+)
 begin
 	select ri.id as image_id, ri.restaurant_id as restaurant_id, convert(ri.file_name using utf8) as file_name,
 	convert(ri.description using utf8) as description 
 	from restaurant_images ri
-	where ri.file_name = file_name_input;
+	inner join restaurant r on r.id = ri.restaurant_id 
+	inner join restaurant_session rs on rs.restaurant_id = r.id 
+	where ri.file_name = file_name_input and rs.token = token_input;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -765,4 +770,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-21 13:08:30
+-- Dump completed on 2022-12-21 19:07:29
