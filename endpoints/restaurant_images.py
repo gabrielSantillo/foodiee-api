@@ -33,15 +33,20 @@ def post():
 
 
 def get():
+    is_valid_header = check_endpoint_info(request.headers, ['token'])
+    if(is_valid_header != None):
+        return make_response(json.dumps(is_valid_header, default=str), 400)
+
     is_valid = check_endpoint_info(request.args, ['file_name'])
     if(is_valid != None):
         return make_response(json.dumps(is_valid, default=str), 400)
 
-    results = run_statement('CALL get_restaurant_images(?)', [request.args.get('file_name')])
+    results = run_statement('CALL get_restaurant_images(?,?)', [request.args.get('file_name'),          
+    request.headers.get('token')])
 
     if(type(results) != list):
         return make_response(json.dumps(results, default=str), 500)
     elif(len(results) == 0):
-        return make_response(json.dumps("Wrong file name.", default=str), 400)
+        return make_response(json.dumps("Wrong file name or wrong token.", default=str), 400)
 
     return send_from_directory('restaurant_images', results[0]['file_name'])
