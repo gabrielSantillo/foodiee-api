@@ -72,6 +72,10 @@ def post_restaurant_images():
 def get_restaurant_images():
     return endpoints.restaurant_images.get()
 
+@app.patch('/api/restaurant-images')
+def patch_restaurant_images():
+    return endpoints.restaurant_images.pacth()
+
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
