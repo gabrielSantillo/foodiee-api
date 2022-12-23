@@ -238,10 +238,10 @@ CREATE TABLE `restaurant_images` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(10) unsigned NOT NULL,
   `file_name` varchar(100) COLLATE utf8mb4_bin NOT NULL,
-  `description` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `description` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `restaurant_images_un` (`restaurant_id`),
+  UNIQUE KEY `restaurant_images_un` (`restaurant_id`,`description`),
   CONSTRAINT `restaurant_images_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -252,7 +252,7 @@ CREATE TABLE `restaurant_images` (
 
 LOCK TABLES `restaurant_images` WRITE;
 /*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
-INSERT INTO `restaurant_images` VALUES (1,4,'24477c751a044a7594383f2953d07147.png','profile','2022-12-21 11:42:50');
+INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56'),(2,4,'49763bd6958b42ed856f3ed394132e93.jpg','banner','2022-12-23 11:23:18');
 /*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1136,4 +1136,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-22 17:22:45
+-- Dump completed on 2022-12-23 11:25:24
