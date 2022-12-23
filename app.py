@@ -100,6 +100,12 @@ def delete_menu_item():
 def post_menu_item_image():
     return endpoints.menu_item_images.post()
 
+@app.patch('/api/menu-item-images')
+def patch_menu_item_image():
+    return endpoints.menu_item_images.pacth()
+
+
+
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):
     print("Running in Production Mode")

@@ -72,7 +72,7 @@ def pacth():
 
     # Make sure something came back from the DB that wasn't an error
     if (type(image) != list):
-        return make_response(json.dumps(results), 500)
+        return make_response(json.dumps(image), 500)
     elif (len(image) == 0):
             return make_response(json.dumps("This image id is invalid.."), 400)
 
