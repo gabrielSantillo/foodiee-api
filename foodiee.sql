@@ -243,7 +243,7 @@ CREATE TABLE `restaurant_images` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `restaurant_images_un` (`restaurant_id`,`description`),
   CONSTRAINT `restaurant_images_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,12 +441,16 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_restaurant_image`(
 restaurant_id_input int unsigned,
 file_name_input varchar(100),
-description_input varchar(100)
+description_input varchar(100),
+token_input varchar(100)
 )
     MODIFIES SQL DATA
 begin
 	insert into restaurant_images (restaurant_id, file_name, description)
-	values (restaurant_id_input, file_name_input, description_input);
+	select rs.restaurant_id, file_name_input, description_input
+	from restaurant r 
+	inner join restaurant_session rs on rs.restaurant_id = r.id
+	where rs.token = token_input;
 
 	select last_insert_id() as image_id, convert(ri.description using utf8) as description
 	from restaurant_images ri 
@@ -1136,4 +1140,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-23 11:25:24
+-- Dump completed on 2022-12-23 11:40:32
