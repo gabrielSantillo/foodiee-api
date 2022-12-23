@@ -26,6 +26,8 @@ def post():
     if(type(results) == list and len(results) != 0):
         return make_response(json.dumps(results[0], default=str), 200)
     elif(type(results) == list and len(results) == 0):
+        image_path = os.path.join('restaurant_menu_images', filename)
+        os.remove(image_path)
         return make_response(json.dumps("Wrong token.", default=str), 400)
     elif(results.startswith("Duplicate entry")):
         image_path = os.path.join('restaurant_menu_images', filename)

@@ -146,13 +146,13 @@ DROP TABLE IF EXISTS `menu_item_images`;
 CREATE TABLE `menu_item_images` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menu_item_id` int(10) unsigned NOT NULL,
-  `file_name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  `description` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `file_name` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_item_images_un` (`menu_item_id`),
   CONSTRAINT `menu_item_images_FK` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +161,7 @@ CREATE TABLE `menu_item_images` (
 
 LOCK TABLES `menu_item_images` WRITE;
 /*!40000 ALTER TABLE `menu_item_images` DISABLE KEYS */;
-INSERT INTO `menu_item_images` VALUES (3,1,'0091c020139c46109cc32a6d0c67eb20.png','cheeseburger picture','2022-12-22 16:41:30');
+INSERT INTO `menu_item_images` VALUES (5,1,'f2fa0c47fbff4b09bf4ea45454b278ab.png','cheeseburger picture','2022-12-23 12:04:26');
 /*!40000 ALTER TABLE `menu_item_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,12 +369,17 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_menu_item_image`(
 menu_item_id_input int unsigned,
 file_name_input varchar(100),
-description_input varchar(100)
+description_input varchar(100),
+token_input varchar(100)
 )
     MODIFIES SQL DATA
 begin
 	insert into menu_item_images(menu_item_id, file_name, description)
-	values (menu_item_id_input, file_name_input, description_input);
+	select mi.id, file_name_input, description_input
+	from menu_item mi 
+	inner join restaurant r on r.id = mi.restaurant_id 
+	inner join restaurant_session rs on rs.restaurant_id = r.id 
+	where rs.token = token_input and mi.id = menu_item_id_input;
 
 	select last_insert_id() as image_id, convert(mii.file_name using utf8) as file_name,
 	convert(mii.description using utf8) as description 
@@ -1140,4 +1145,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-23 11:40:32
+-- Dump completed on 2022-12-23 12:08:42
