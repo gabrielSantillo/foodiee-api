@@ -62,3 +62,15 @@ def check_data_sent(sent_data, original_data, expected_data):
     return original_data
 
 
+# this function is responsible for checking if the menu ids sent when ordering belongs to the restaurant id that was sent
+def match_ids(ids_sent, original_ids):
+    ids = []
+    for id in ids_sent:
+        for item_id in original_ids:
+            if(id == item_id['id']):
+                    ids.append(id)
+        
+    if(len(ids) == len(ids_sent)):
+        return True
+    else:
+        return False
