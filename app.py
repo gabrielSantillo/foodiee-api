@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order
+import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order, endpoints.restaurant_order
 from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
@@ -111,9 +111,14 @@ def post_order():
     return endpoints.client_order.post()
 
 @app.get('/api/client-order')
-def get_order():
+def get_client_order():
     return endpoints.client_order.get()
 
+
+############### RESTAURANT_ORDER ###############
+@app.get('/api/restaurant-order')
+def get_restaurant_order():
+    return endpoints.restaurant_order.get()
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

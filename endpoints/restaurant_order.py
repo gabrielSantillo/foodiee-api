@@ -11,7 +11,7 @@ def get():
         return make_response(json.dumps(is_valid_header, default=str), 400)
 
     # calling a procedure that get all orders related to a restaurant
-    results = run_statement('CALL get_all_restaurant_order(?)', [request.headers.get('token')])
+    results = run_statement('CALL get_all_restaurant_orders(?)', [request.headers.get('token')])
 
     # if results is a list and the length of results is different than zero, return a success response
     if(type(results) == list and len(results) != 0):
