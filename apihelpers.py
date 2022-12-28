@@ -77,7 +77,7 @@ def match_ids(ids_sent, original_ids):
 
 
 # this function is resposible to organize orders having a list that contains dictionaries with all orders made by the client
-def organize_response(response):
+def organize_client_response(response):
     orders = []
     ids = []
 
@@ -105,6 +105,36 @@ def organize_response(response):
                     'menu_item_id': data['menu_item_id'],
                     'description': data['description'],
                     'file_name': data['file_name']
+                }]
+            }
+            orders.append(item)
+    return orders
+
+
+# this function is resposible to organize orders having a list that contains dictionaries with all orders that a restaurant received
+def organize_restaurant_response(response):
+    orders = []
+    ids = []
+
+    for data in response:
+        if (data['id'] in ids):
+            menu_item = {
+                'name': data['name'],
+                'price': data['price'],
+                'menu_item_id': data['menu_item_id']
+            }
+            item['menu_items'].append(menu_item)
+        else:
+            ids.append(data['id'])
+
+            item = {
+                'id': data['id'],
+                'is_confirmed': data['is_confirmed'],
+                'is_complete': data['is_complete'],
+                'menu_items': [{
+                    'name': data['name'],
+                    'price': data['price'],
+                    'menu_item_id': data['menu_item_id']
                 }]
             }
             orders.append(item)

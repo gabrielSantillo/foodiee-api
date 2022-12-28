@@ -1,5 +1,5 @@
 from flask import request, make_response
-from apihelpers import check_endpoint_info, match_ids, organize_response
+from apihelpers import check_endpoint_info, match_ids, organize_client_response
 import json
 from dbhelpers import run_statement
 
@@ -63,7 +63,7 @@ def get():
 
     # if the results is a list and the length is different than zero, return a success response
     if(type(results) == list and len(results) != 0):
-        better_response = organize_response(results)
+        better_response = organize_client_response(results)
         return make_response(json.dumps(better_response, default=str), 200)
     # if the results is a list and the length is zero, return a failure response
     elif(type(results) == list and len(results) == 0):
