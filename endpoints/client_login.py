@@ -17,7 +17,7 @@ def post():
     if(type(results) == list and len(results) != 0):
         return make_response(json.dumps(results[0], default=str), 200)
     elif(type(results) == list and len(results) == 0):
-        return make_response(json.dumps('Wrong email or/and password.', default=str), 400)
+        return make_response(json.dumps('Wrong email and/or password.', default=str), 400)
     else:
         return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)
 
