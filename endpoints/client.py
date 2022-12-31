@@ -13,7 +13,7 @@ def post():
     token = secrets.token_hex(nbytes=None)
     salt = uuid4().hex
 
-    results = run_statement('CALL add_client(?,?,?,?,?,?,?)', [request.json.get('email'), request.json.get('first_name'),               
+    results = run_statement('CALL add_client(?,?,?,?,?,?)', [request.json.get('email'), request.json.get('first_name'),               
     request.json.get('last_name'), request.json.get('password'), salt, token])
 
     if(type(results) == list and len(results) != 0):
