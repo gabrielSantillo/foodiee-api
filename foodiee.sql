@@ -122,7 +122,7 @@ CREATE TABLE `menu_item` (
   PRIMARY KEY (`id`),
   KEY `menu_item_FK` (`restaurant_id`),
   CONSTRAINT `menu_item_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat,',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34'),(6,4,'Chicken Burger','Combine chicken, bread crumbs, milk, chopped green onions, Worcestershire sauce and salt and pepper and form into patties',16.99,'2023-01-02 11:48:19');
+INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat,',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34'),(6,4,'Chicken Burger','Combine chicken, bread crumbs, milk, chopped green onions, Worcestershire sauce and salt and pepper and form into patties',16.99,'2023-01-02 11:48:19'),(7,6,'Kani Roll','Made from sushi rice, nori seaweed and a mixture of spicy mayo and crab or imitation crab',12.99,'2023-01-02 13:56:08'),(8,6,'Hot Roll','Fried in a special batter, the rolls acquire a crispy, golden crust and an unusual taste',14.99,'2023-01-02 13:59:35'),(9,6,'Temaki','Sushi in the hand roll form, otherwise known as hand roll sushi',15.99,'2023-01-02 14:03:08');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `menu_item_images` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_item_images_un` (`menu_item_id`),
   CONSTRAINT `menu_item_images_FK` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `menu_item_images` (
 
 LOCK TABLES `menu_item_images` WRITE;
 /*!40000 ALTER TABLE `menu_item_images` DISABLE KEYS */;
-INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11'),(10,6,'58ce7651f4214e3797ffddc17fab88cd.png','chicken burger picture','2023-01-02 11:48:51');
+INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11'),(10,6,'58ce7651f4214e3797ffddc17fab88cd.png','chicken burger picture','2023-01-02 11:48:51'),(11,7,'18f945ecd8f3447db86eff5ce727c47f.jpeg','kani roll picture','2023-01-02 13:56:47'),(12,8,'76c2d9a59afa45a3ab8ae3bfeec2ab5a.jpeg','hot roll picture','2023-01-02 14:00:02'),(13,9,'0bff11d2d0dd48bb95bcb5a228f2430a.jpeg','temaki picture','2023-01-02 14:03:25');
 /*!40000 ALTER TABLE `menu_item_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,7 @@ CREATE TABLE `restaurant` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `restaurant_un` (`email`),
   UNIQUE KEY `restaurant_un_phone_number` (`phone_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +283,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES (4,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','*607E112D15E10AF57A06FFE2F2F83E2FE42BBCAE','3dfb2cadab9042a497384cba8413d048','15 Fresh Toppings To Choose From For Over 250,000 Combinations. Make Your Burger Your Own','Calgary','2022-12-20 16:44:19');
+INSERT INTO `restaurant` VALUES (4,'Five Guys','2564 17th Avenue','8888888888','fiveguys@gmail.com','*607E112D15E10AF57A06FFE2F2F83E2FE42BBCAE','3dfb2cadab9042a497384cba8413d048','15 Fresh Toppings To Choose From For Over 250,000 Combinations.','Calgary','2022-12-20 16:44:19'),(6,'Fusion Sushi','678 27th Street','9999999999','sushi@gmail.com','*8B2CF42E03ED22C47D7DD5E70B6054727F478AB4','a6c24d5869de4237bd7d4827117f5452','Fusion Sushi prepares and serves a refreshing Japenese food.','Calgary','2023-01-02 13:51:18');
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,13 +297,13 @@ DROP TABLE IF EXISTS `restaurant_images`;
 CREATE TABLE `restaurant_images` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(10) unsigned NOT NULL,
-  `file_name` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `file_name` varchar(1000) COLLATE utf8mb4_bin NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `restaurant_images_un` (`restaurant_id`,`description`),
   CONSTRAINT `restaurant_images_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +312,7 @@ CREATE TABLE `restaurant_images` (
 
 LOCK TABLES `restaurant_images` WRITE;
 /*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
-INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56');
+INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56'),(6,6,'8dc1780e3be64614a6bae1435f127860.png','profile','2023-01-02 13:53:10');
 /*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +332,7 @@ CREATE TABLE `restaurant_session` (
   UNIQUE KEY `restaurant_session_un` (`token`),
   KEY `restaurant_session_FK` (`restaurant_id`),
   CONSTRAINT `restaurant_session_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,7 +341,7 @@ CREATE TABLE `restaurant_session` (
 
 LOCK TABLES `restaurant_session` WRITE;
 /*!40000 ALTER TABLE `restaurant_session` DISABLE KEYS */;
-INSERT INTO `restaurant_session` VALUES (3,4,'4e95449a9033cd656137bd1b4d4302a23dcf159b4becf55801f16c8a51b06488','2022-12-21 10:49:41'),(4,4,'aa437694fb31287dbd4f5879cbe60aee0ac911db537c9b362486bc7cfaec1697','2022-12-22 11:58:01'),(5,4,'589cb0e7b8f3140bd97ea8c16378a1b8f1aadb84c2eb6734e4430d7c2d05b001','2022-12-22 12:02:56');
+INSERT INTO `restaurant_session` VALUES (3,4,'4e95449a9033cd656137bd1b4d4302a23dcf159b4becf55801f16c8a51b06488','2022-12-21 10:49:41'),(4,4,'aa437694fb31287dbd4f5879cbe60aee0ac911db537c9b362486bc7cfaec1697','2022-12-22 11:58:01'),(5,4,'589cb0e7b8f3140bd97ea8c16378a1b8f1aadb84c2eb6734e4430d7c2d05b001','2022-12-22 12:02:56'),(6,6,'91474d9bf6440b3c6f6e73f8952947260dd8fcd8852687f68111c9c62fcd9524',NULL);
 /*!40000 ALTER TABLE `restaurant_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1421,4 +1421,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-02 12:20:39
+-- Dump completed on 2023-01-02 14:06:53
