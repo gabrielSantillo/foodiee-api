@@ -32,7 +32,7 @@ CREATE TABLE `client` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `client_un` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*F3C1E68102E5F511CAC4C2BAE0211D7FEE6A59CE','68de47580bf64048bd14f88e2621d8ef','2022-12-19 11:28:53'),(5,'testing','testing','testing@t.com','*BBFBEBCDF0631EAF619E5E3F928C6D665C12442E','1d994463d7a349149f04b90ecabd0265','2022-12-30 17:21:21');
+INSERT INTO `client` VALUES (1,'Gabriel','Santillo','gabriel@testing.com','*F3C1E68102E5F511CAC4C2BAE0211D7FEE6A59CE','68de47580bf64048bd14f88e2621d8ef','2022-12-19 11:28:53');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `client_session` (
   UNIQUE KEY `client_session_un` (`token`),
   KEY `client_session_FK` (`client_id`),
   CONSTRAINT `client_session_FK` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `client_session` (
 
 LOCK TABLES `client_session` WRITE;
 /*!40000 ALTER TABLE `client_session` DISABLE KEYS */;
-INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26'),(3,1,'0cf15d3d0ad38b9d0a34747e4d210ceaa829a661489ea4475a67d0ad29209ce5','2022-12-22 11:43:20'),(4,1,'6424e4fb5ffb930222a9349e56611dc1e4b3fa963327d5f33e3dd4f740d1e7c6','2022-12-30 16:09:59'),(5,1,'ee0424cdbc6630a4dfb282f7e113137e8c5cd74295baf0e4b7b49537fc8e1d7e','2022-12-30 16:09:59'),(6,1,'f178650937469fe23c34528cd22b068a020b0b60be4fe37186bd67d14461fd8b','2022-12-30 16:12:21'),(7,1,'f3f0f6e7c0ff08f8b3326a52f9f1ce232011d3faa73741b2a01e62f2fa5073b3','2022-12-30 16:12:44'),(8,1,'d2d3d6dcdf5554ff5138ad6fe7ba80c833cb8a656870c838da522ea5d4585dd5','2022-12-30 16:16:16'),(9,1,'edc3e2a952ba478202320dd82d8c8d1b2dbcfdd89ee84543c2012aa7a5907610','2022-12-30 16:16:17'),(10,1,'ac55aa02098cb57872ed420206d8d2b0f20f526c73fc05413233c4cbfe80ab72','2022-12-30 16:16:19'),(11,1,'3fcbeeb39bab89e5f1b689d9f8975b6921ed3eead3b334ab7ba802887d9e505c','2022-12-30 16:16:19'),(12,1,'f8ff1478b9966465332ec1d29c6edf1cfa30e054ef33264e47333aa2e5cc4e40','2022-12-30 16:16:19'),(13,1,'114f97edbdce6639a7ead5286d3cdba4c2b640fb0a5c7049f01f830d754260a3','2022-12-30 16:16:20'),(14,1,'fd733c6525439a881a1734cf6bd9a6d8d7f1f4a8f2992bf87afca3f16b256873','2022-12-30 16:16:49'),(15,1,'a1ef55deba9443d2c98584dd78986cbab3e46b7d9e9f40e20d4449f75261ed24','2022-12-30 16:16:51'),(16,1,'ec0f96d392ce4bf0cc936500a075dfa395dbaf0d56898a179d8e1e95dfa3e0f3','2022-12-30 16:16:51'),(17,1,'8e3eb70e99756786f9ac8aa1face3c522d62c646426eff1c04505c2d44ce4bcf','2022-12-30 16:16:52'),(18,1,'faf85a683d4a2732e61f01a6d7e9e64cece540707c19b105cb52cabb143fb63c','2022-12-30 16:16:52'),(19,1,'837820f1f88b0cbec32cb482d6b91879c79410b4d39848b1d094dee4cec9a719','2022-12-30 16:16:52'),(20,1,'ee8a3519d32bc385459d89a786f6b09711e2f02a2de507f668d39c668386961c','2022-12-30 16:25:13');
+INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26'),(3,1,'0cf15d3d0ad38b9d0a34747e4d210ceaa829a661489ea4475a67d0ad29209ce5','2022-12-22 11:43:20'),(4,1,'6424e4fb5ffb930222a9349e56611dc1e4b3fa963327d5f33e3dd4f740d1e7c6','2022-12-30 16:09:59'),(5,1,'ee0424cdbc6630a4dfb282f7e113137e8c5cd74295baf0e4b7b49537fc8e1d7e','2022-12-30 16:09:59'),(6,1,'f178650937469fe23c34528cd22b068a020b0b60be4fe37186bd67d14461fd8b','2022-12-30 16:12:21'),(7,1,'f3f0f6e7c0ff08f8b3326a52f9f1ce232011d3faa73741b2a01e62f2fa5073b3','2022-12-30 16:12:44'),(8,1,'d2d3d6dcdf5554ff5138ad6fe7ba80c833cb8a656870c838da522ea5d4585dd5','2022-12-30 16:16:16'),(9,1,'edc3e2a952ba478202320dd82d8c8d1b2dbcfdd89ee84543c2012aa7a5907610','2022-12-30 16:16:17'),(10,1,'ac55aa02098cb57872ed420206d8d2b0f20f526c73fc05413233c4cbfe80ab72','2022-12-30 16:16:19'),(11,1,'3fcbeeb39bab89e5f1b689d9f8975b6921ed3eead3b334ab7ba802887d9e505c','2022-12-30 16:16:19'),(12,1,'f8ff1478b9966465332ec1d29c6edf1cfa30e054ef33264e47333aa2e5cc4e40','2022-12-30 16:16:19'),(13,1,'114f97edbdce6639a7ead5286d3cdba4c2b640fb0a5c7049f01f830d754260a3','2022-12-30 16:16:20'),(14,1,'fd733c6525439a881a1734cf6bd9a6d8d7f1f4a8f2992bf87afca3f16b256873','2022-12-30 16:16:49'),(15,1,'a1ef55deba9443d2c98584dd78986cbab3e46b7d9e9f40e20d4449f75261ed24','2022-12-30 16:16:51'),(16,1,'ec0f96d392ce4bf0cc936500a075dfa395dbaf0d56898a179d8e1e95dfa3e0f3','2022-12-30 16:16:51'),(17,1,'8e3eb70e99756786f9ac8aa1face3c522d62c646426eff1c04505c2d44ce4bcf','2022-12-30 16:16:52'),(18,1,'faf85a683d4a2732e61f01a6d7e9e64cece540707c19b105cb52cabb143fb63c','2022-12-30 16:16:52'),(19,1,'837820f1f88b0cbec32cb482d6b91879c79410b4d39848b1d094dee4cec9a719','2022-12-30 16:16:52'),(20,1,'ee8a3519d32bc385459d89a786f6b09711e2f02a2de507f668d39c668386961c','2022-12-30 16:25:13'),(22,1,'6933f5ce8bceb63375e310c99eafd1b46adfcd5db8adc4d9971f716596445bb7','2022-12-30 18:11:04'),(24,1,'26a00282fb85ecce80b3027cf1ec526927b4b059e578ad1b190371f5f75563a0','2022-12-31 16:44:26'),(25,1,'313dc5c667ecc8d305ea828bd4536f81e26a0a22ce72e16d7058dff66fd7db7c','2023-01-02 11:12:32'),(26,1,'005d4b620d12cedd5e8cb45926c67cb2ce89068c91ac07f5faef2c6a4fc521c5','2023-01-02 11:13:23');
 /*!40000 ALTER TABLE `client_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1111,6 +1111,29 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_all_restaurants` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_restaurants`()
+begin
+	select convert(r.name using utf8) as name, convert(r.address using utf8) as address, convert(r.phone_number using utf8) as phone_number,
+	convert(r.email using utf8) as email, convert(r.bio using utf8) as bio, convert(r.city using utf8) as city,
+	convert(ri.file_name using utf8) as file_name
+	from restaurant r
+	inner join restaurant_images ri on ri.restaurant_id = r.id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_all_restaurant_orders` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1288,9 +1311,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_restaurant_by_token`(token_input varchar(100))
 begin
 	select convert(r.name using utf8) as name, convert(r.address using utf8) as address, convert(r.phone_number using utf8) as phone_number,
-	convert(r.email using utf8) as email, convert(r.password using utf8) as password, convert(r.bio using utf8) as bio, convert(r.city using utf8) as city   
+	convert(r.email using utf8) as email, convert(r.password using utf8) as password, convert(r.bio using utf8) as bio, convert(r.city using utf8) as city,
+	convert(ri.file_name using utf8) as file_name
 	from restaurant r
-	inner join restaurant_session rs on rs.token = token_input
+	inner join restaurant_session rs on rs.restaurant_id = r.id
+	inner join restaurant_images ri on ri.restaurant_id = rs.restaurant_id 
 	where rs.token = token_input;
 END ;;
 DELIMITER ;
@@ -1396,4 +1421,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-30 17:23:41
+-- Dump completed on 2023-01-02 11:44:31
