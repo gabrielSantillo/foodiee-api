@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order, endpoints.restaurant_order
+import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order, endpoints.restaurant_order, endpoints.client_restaurant
 from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
@@ -51,6 +51,12 @@ def patch_restaurant():
 @app.delete('/api/restaurant')
 def delete_restaurant():
     return endpoints.restaurant.delete()
+
+#####################################
+# ENDPOINT TO GET ALL RESTAURANTS
+@app.get('/api/all-restaurants')
+def get_all_restaurants():
+    return endpoints.client_restaurant.get()
 
 
 ############### RESTAURANT LOGIN ###############
