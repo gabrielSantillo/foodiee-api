@@ -122,7 +122,7 @@ CREATE TABLE `menu_item` (
   PRIMARY KEY (`id`),
   KEY `menu_item_FK` (`restaurant_id`),
   CONSTRAINT `menu_item_FK` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat,',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34');
+INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat,',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34'),(6,4,'Chicken Burger','Combine chicken, bread crumbs, milk, chopped green onions, Worcestershire sauce and salt and pepper and form into patties',16.99,'2023-01-02 11:48:19');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `menu_item_images` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_item_images_un` (`menu_item_id`),
   CONSTRAINT `menu_item_images_FK` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `menu_item_images` (
 
 LOCK TABLES `menu_item_images` WRITE;
 /*!40000 ALTER TABLE `menu_item_images` DISABLE KEYS */;
-INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11');
+INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11'),(10,6,'58ce7651f4214e3797ffddc17fab88cd.png','chicken burger picture','2023-01-02 11:48:51');
 /*!40000 ALTER TABLE `menu_item_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `restaurant_images` (
 
 LOCK TABLES `restaurant_images` WRITE;
 /*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
-INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56'),(2,4,'49763bd6958b42ed856f3ed394132e93.jpg','banner','2022-12-23 11:23:18');
+INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56');
 /*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1121,7 +1121,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_restaurants`()
 begin
-	select convert(r.name using utf8) as name, convert(r.address using utf8) as address, convert(r.phone_number using utf8) as phone_number,
+	select r.id, convert(r.name using utf8) as name, convert(r.address using utf8) as address, convert(r.phone_number using utf8) as phone_number,
 	convert(r.email using utf8) as email, convert(r.bio using utf8) as bio, convert(r.city using utf8) as city,
 	convert(ri.file_name using utf8) as file_name
 	from restaurant r
@@ -1421,4 +1421,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-02 11:44:31
+-- Dump completed on 2023-01-02 12:20:39
