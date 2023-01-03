@@ -14,9 +14,9 @@ def get():
     if(type(results) != list):
         return make_response(json.dumps(results, default=str), 500)
     elif(len(results) == 0):
-        return make_response(json.dumps("Wrong file name.", default=str), 400)
+        return make_response(json.dumps("Wrong file name or wrong token.", default=str), 400)
 
-    return send_from_directory('menu_item_images', results[0]['file_name'])
+    return send_from_directory('restaurant_menu_images', results[0]['file_name'])
 
 
 def post():
