@@ -1240,7 +1240,8 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_menu_items_by_restaurant_id`(restaurant_id_input int unsigned)
 begin
-	select mi.id 
+	select mi.id as menu_item_id, convert(mi.name using utf8) as name, convert(mi.description using utf8) as description,
+	convert(mi.price using utf8) as price
 	from menu_item mi
 	where mi.restaurant_id = restaurant_id_input;
 END ;;
@@ -1442,4 +1443,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-02 18:07:45
+-- Dump completed on 2023-01-03 11:15:33
