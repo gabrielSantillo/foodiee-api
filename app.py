@@ -102,6 +102,10 @@ def delete_menu_item():
 
 
 ############### MENU ITEM IMAGES ###############
+@app.get('/api/menu-item-images')
+def get_menu_item_image():
+    return endpoints.menu_item_images.get()
+
 @app.post('/api/menu-item-images')
 def post_menu_item_image():
     return endpoints.menu_item_images.post()

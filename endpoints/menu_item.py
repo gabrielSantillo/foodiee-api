@@ -30,7 +30,7 @@ def get():
         return make_response(json.dumps(is_valid, default=str), 400)
 
     results = run_statement('CALL get_menu_items_by_restaurant_id(?)', 
-    [request.args.get('restaurant_id'), request.headers.get('token')])
+    [request.args.get('restaurant_id')])
 
     if(type(results) == list and len(results) != 0):
         return make_response(json.dumps(results, default=str), 200)
