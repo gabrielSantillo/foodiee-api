@@ -131,7 +131,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat,',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34'),(6,4,'Chicken Burger','Combine chicken, bread crumbs, milk, chopped green onions, Worcestershire sauce and salt and pepper and form into patties',16.99,'2023-01-02 11:48:19'),(7,6,'Kani Roll','Made from sushi rice, nori seaweed and a mixture of spicy mayo and crab or imitation crab',12.99,'2023-01-02 13:56:08'),(8,6,'Hot Roll','Fried in a special batter, the rolls acquire a crispy, golden crust and an unusual taste',14.99,'2023-01-02 13:59:35'),(9,6,'Temaki','Sushi in the hand roll form, otherwise known as hand roll sushi',15.99,'2023-01-02 14:03:08'),(10,7,'Pepperoni Lover\'s','Double pepperoni and extra pizza mozzarella.',13.99,'2023-01-02 16:05:11'),(11,7,'Hawaiian','Ham, pineapple and extra pizza mozzarella.',14.99,'2023-01-02 16:07:02'),(12,7,'Cheese Lover\'s','Extra pizza mozzarella and choose two of your favourite toppings.',11.99,'2023-01-02 16:08:48');
+INSERT INTO `menu_item` VALUES (3,4,'Bacon Cheeseburger','The ultimate bacon cheeseburger with beef cooked in bacon fat, a bacon fat mayonnaise, onions caramelized in bacon fat and buns toasted in bacon fat.',19.99,'2022-12-22 14:55:49'),(5,4,'Cheeseburger','Our simple, classic cheeseburger begins with a 100% pure beef burger patty seasoned with just a pinch of salt and pepper.',17.99,'2022-12-26 21:27:34'),(6,4,'Chicken Burger','Combine chicken, bread crumbs, milk, chopped green onions, Worcestershire sauce and salt and pepper and form into patties.',16.99,'2023-01-02 11:48:19'),(7,6,'Kani Roll','Made from sushi rice, nori seaweed and a mixture of spicy mayo and crab or imitation crab.',12.99,'2023-01-02 13:56:08'),(8,6,'Hot Roll','Fried in a special batter, the rolls acquire a crispy, golden crust and an unusual taste.',14.99,'2023-01-02 13:59:35'),(9,6,'Temaki','Sushi in the hand roll form, otherwise known as hand roll sushi.',15.99,'2023-01-02 14:03:08'),(10,7,'Pepperoni Lover\'s','Double pepperoni and extra pizza mozzarella.',13.99,'2023-01-02 16:05:11'),(11,7,'Hawaiian','Ham, pineapple and extra pizza mozzarella.',14.99,'2023-01-02 16:07:02'),(12,7,'Cheese Lover\'s','Extra pizza mozzarella and choose two of your favourite toppings.',11.99,'2023-01-02 16:08:48');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1230,6 +1230,27 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_menu_image` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_menu_image`(file_name_input varchar(100))
+begin
+	select convert(mii.file_name using utf8) as file_name 
+	from menu_item_images mii
+	where mii.file_name = file_name_input;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_menu_items_by_restaurant_id` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1241,8 +1262,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_menu_items_by_restaurant_id`(restaurant_id_input int unsigned)
 begin
 	select mi.id as menu_item_id, convert(mi.name using utf8) as name, convert(mi.description using utf8) as description,
-	convert(mi.price using utf8) as price
-	from menu_item mi
+	convert(mi.price using utf8) as price, convert(mii.file_name using utf8) as file_name
+	from menu_item mi
+	inner join menu_item_images mii on mii.menu_item_id = mi.id 
 	where mi.restaurant_id = restaurant_id_input;
 END ;;
 DELIMITER ;
@@ -1443,4 +1465,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-03 11:15:33
+-- Dump completed on 2023-01-03 12:15:27
