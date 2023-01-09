@@ -67,7 +67,7 @@ def match_ids(ids_sent, original_ids):
     ids = []
     for id in ids_sent:
         for item_id in original_ids:
-            if(id == item_id['id']):
+            if(id == item_id['menu_item_id']):
                     ids.append(id)
         
     if(len(ids) == len(ids_sent)):
