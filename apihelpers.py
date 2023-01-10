@@ -91,6 +91,7 @@ def organize_client_response(response):
                 'file_name': data['file_name']
             }
             item['menu_items'].append(menu_item)
+            item['total_order'] += float(data['price'])
         else:
             ids.append(data['id'])
 
@@ -99,6 +100,7 @@ def organize_client_response(response):
                 'restaurant_id': data['restaurant_id'],
                 'is_confirmed': data['is_confirmed'],
                 'is_complete': data['is_complete'],
+                'total_order': float(data['price']),
                 'menu_items': [{
                     'name': data['name'],
                     'price': data['price'],
