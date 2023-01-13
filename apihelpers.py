@@ -98,6 +98,7 @@ def organize_client_response(response):
             item = {
                 'id': data['id'],
                 'restaurant_id': data['restaurant_id'],
+                'restaurant_name': data['restaurant_name'],
                 'is_confirmed': data['is_confirmed'],
                 'is_complete': data['is_complete'],
                 'total_order': float(data['price']),
