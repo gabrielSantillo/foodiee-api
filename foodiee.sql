@@ -92,7 +92,7 @@ CREATE TABLE `client_session` (
   UNIQUE KEY `client_session_un` (`token`),
   KEY `client_session_FK` (`client_id`),
   CONSTRAINT `client_session_FK` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `client_session` (
 
 LOCK TABLES `client_session` WRITE;
 /*!40000 ALTER TABLE `client_session` DISABLE KEYS */;
-INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26'),(3,1,'0cf15d3d0ad38b9d0a34747e4d210ceaa829a661489ea4475a67d0ad29209ce5','2022-12-22 11:43:20'),(4,1,'6424e4fb5ffb930222a9349e56611dc1e4b3fa963327d5f33e3dd4f740d1e7c6','2022-12-30 16:09:59'),(5,1,'ee0424cdbc6630a4dfb282f7e113137e8c5cd74295baf0e4b7b49537fc8e1d7e','2022-12-30 16:09:59'),(6,1,'f178650937469fe23c34528cd22b068a020b0b60be4fe37186bd67d14461fd8b','2022-12-30 16:12:21'),(7,1,'f3f0f6e7c0ff08f8b3326a52f9f1ce232011d3faa73741b2a01e62f2fa5073b3','2022-12-30 16:12:44'),(8,1,'d2d3d6dcdf5554ff5138ad6fe7ba80c833cb8a656870c838da522ea5d4585dd5','2022-12-30 16:16:16'),(9,1,'edc3e2a952ba478202320dd82d8c8d1b2dbcfdd89ee84543c2012aa7a5907610','2022-12-30 16:16:17'),(10,1,'ac55aa02098cb57872ed420206d8d2b0f20f526c73fc05413233c4cbfe80ab72','2022-12-30 16:16:19'),(11,1,'3fcbeeb39bab89e5f1b689d9f8975b6921ed3eead3b334ab7ba802887d9e505c','2022-12-30 16:16:19'),(12,1,'f8ff1478b9966465332ec1d29c6edf1cfa30e054ef33264e47333aa2e5cc4e40','2022-12-30 16:16:19'),(13,1,'114f97edbdce6639a7ead5286d3cdba4c2b640fb0a5c7049f01f830d754260a3','2022-12-30 16:16:20'),(14,1,'fd733c6525439a881a1734cf6bd9a6d8d7f1f4a8f2992bf87afca3f16b256873','2022-12-30 16:16:49'),(15,1,'a1ef55deba9443d2c98584dd78986cbab3e46b7d9e9f40e20d4449f75261ed24','2022-12-30 16:16:51'),(16,1,'ec0f96d392ce4bf0cc936500a075dfa395dbaf0d56898a179d8e1e95dfa3e0f3','2022-12-30 16:16:51'),(17,1,'8e3eb70e99756786f9ac8aa1face3c522d62c646426eff1c04505c2d44ce4bcf','2022-12-30 16:16:52'),(18,1,'faf85a683d4a2732e61f01a6d7e9e64cece540707c19b105cb52cabb143fb63c','2022-12-30 16:16:52'),(19,1,'837820f1f88b0cbec32cb482d6b91879c79410b4d39848b1d094dee4cec9a719','2022-12-30 16:16:52'),(20,1,'ee8a3519d32bc385459d89a786f6b09711e2f02a2de507f668d39c668386961c','2022-12-30 16:25:13'),(22,1,'6933f5ce8bceb63375e310c99eafd1b46adfcd5db8adc4d9971f716596445bb7','2022-12-30 18:11:04'),(24,1,'26a00282fb85ecce80b3027cf1ec526927b4b059e578ad1b190371f5f75563a0','2022-12-31 16:44:26'),(25,1,'313dc5c667ecc8d305ea828bd4536f81e26a0a22ce72e16d7058dff66fd7db7c','2023-01-02 11:12:32'),(26,1,'005d4b620d12cedd5e8cb45926c67cb2ce89068c91ac07f5faef2c6a4fc521c5','2023-01-02 11:13:23'),(27,1,'8be30b9f804ed4671b157974c6d037c46bb125ffae4ae54e081588d4540a9a4f','2023-01-02 16:15:16'),(28,1,'7b3bcd7525f5c8a733ab46a687cd95551af50a85f8756c392e5a8db4b413b3b7','2023-01-06 16:26:24'),(29,1,'8377adb19c1f84b34b8713b59820770b67b744ab114d368e4cd4c97dbf411c60','2023-01-07 12:50:21'),(30,1,'5fc84ebd0e5c3bcd24c02c5e8d58d5e81a308e82d26332286389abe2bee2e2d0','2023-01-07 16:16:17'),(31,1,'214d7b5983bf7750e83279b8c62e24fd1fd3e2a506412beb1fef71dddb933b4b','2023-01-07 16:38:17'),(32,1,'87e499a0fbad00b86ba4da7f4e03d336087a205a0f6ceac63d0c9e87935acd37','2023-01-09 14:35:13'),(33,1,'cfa728a991bdabd2becfcec6a4f4aff294c3fc56cfeef9747dcbc0ab9600c93b','2023-01-12 15:41:02');
+INSERT INTO `client_session` VALUES (2,1,'e925bc8fc350527b4df9dbad2028459193d80da35e997d12cc2dc8f63bfc48e4','2022-12-20 12:14:26'),(3,1,'0cf15d3d0ad38b9d0a34747e4d210ceaa829a661489ea4475a67d0ad29209ce5','2022-12-22 11:43:20'),(4,1,'6424e4fb5ffb930222a9349e56611dc1e4b3fa963327d5f33e3dd4f740d1e7c6','2022-12-30 16:09:59'),(5,1,'ee0424cdbc6630a4dfb282f7e113137e8c5cd74295baf0e4b7b49537fc8e1d7e','2022-12-30 16:09:59'),(6,1,'f178650937469fe23c34528cd22b068a020b0b60be4fe37186bd67d14461fd8b','2022-12-30 16:12:21'),(7,1,'f3f0f6e7c0ff08f8b3326a52f9f1ce232011d3faa73741b2a01e62f2fa5073b3','2022-12-30 16:12:44'),(8,1,'d2d3d6dcdf5554ff5138ad6fe7ba80c833cb8a656870c838da522ea5d4585dd5','2022-12-30 16:16:16'),(9,1,'edc3e2a952ba478202320dd82d8c8d1b2dbcfdd89ee84543c2012aa7a5907610','2022-12-30 16:16:17'),(10,1,'ac55aa02098cb57872ed420206d8d2b0f20f526c73fc05413233c4cbfe80ab72','2022-12-30 16:16:19'),(11,1,'3fcbeeb39bab89e5f1b689d9f8975b6921ed3eead3b334ab7ba802887d9e505c','2022-12-30 16:16:19'),(12,1,'f8ff1478b9966465332ec1d29c6edf1cfa30e054ef33264e47333aa2e5cc4e40','2022-12-30 16:16:19'),(13,1,'114f97edbdce6639a7ead5286d3cdba4c2b640fb0a5c7049f01f830d754260a3','2022-12-30 16:16:20'),(14,1,'fd733c6525439a881a1734cf6bd9a6d8d7f1f4a8f2992bf87afca3f16b256873','2022-12-30 16:16:49'),(15,1,'a1ef55deba9443d2c98584dd78986cbab3e46b7d9e9f40e20d4449f75261ed24','2022-12-30 16:16:51'),(16,1,'ec0f96d392ce4bf0cc936500a075dfa395dbaf0d56898a179d8e1e95dfa3e0f3','2022-12-30 16:16:51'),(17,1,'8e3eb70e99756786f9ac8aa1face3c522d62c646426eff1c04505c2d44ce4bcf','2022-12-30 16:16:52'),(18,1,'faf85a683d4a2732e61f01a6d7e9e64cece540707c19b105cb52cabb143fb63c','2022-12-30 16:16:52'),(19,1,'837820f1f88b0cbec32cb482d6b91879c79410b4d39848b1d094dee4cec9a719','2022-12-30 16:16:52'),(20,1,'ee8a3519d32bc385459d89a786f6b09711e2f02a2de507f668d39c668386961c','2022-12-30 16:25:13'),(22,1,'6933f5ce8bceb63375e310c99eafd1b46adfcd5db8adc4d9971f716596445bb7','2022-12-30 18:11:04'),(24,1,'26a00282fb85ecce80b3027cf1ec526927b4b059e578ad1b190371f5f75563a0','2022-12-31 16:44:26'),(25,1,'313dc5c667ecc8d305ea828bd4536f81e26a0a22ce72e16d7058dff66fd7db7c','2023-01-02 11:12:32'),(26,1,'005d4b620d12cedd5e8cb45926c67cb2ce89068c91ac07f5faef2c6a4fc521c5','2023-01-02 11:13:23'),(27,1,'8be30b9f804ed4671b157974c6d037c46bb125ffae4ae54e081588d4540a9a4f','2023-01-02 16:15:16'),(28,1,'7b3bcd7525f5c8a733ab46a687cd95551af50a85f8756c392e5a8db4b413b3b7','2023-01-06 16:26:24'),(29,1,'8377adb19c1f84b34b8713b59820770b67b744ab114d368e4cd4c97dbf411c60','2023-01-07 12:50:21'),(30,1,'5fc84ebd0e5c3bcd24c02c5e8d58d5e81a308e82d26332286389abe2bee2e2d0','2023-01-07 16:16:17'),(31,1,'214d7b5983bf7750e83279b8c62e24fd1fd3e2a506412beb1fef71dddb933b4b','2023-01-07 16:38:17'),(32,1,'87e499a0fbad00b86ba4da7f4e03d336087a205a0f6ceac63d0c9e87935acd37','2023-01-09 14:35:13'),(33,1,'cfa728a991bdabd2becfcec6a4f4aff294c3fc56cfeef9747dcbc0ab9600c93b','2023-01-12 15:41:02'),(34,1,'dc11880a6d231466c14137c56286354894c7322319c5a3653114003a5ea985ee','2023-01-12 17:11:54'),(35,1,'0e1afaf798313bb5fd2be880ebb95ad9f09e78030fe6d524b5b6428b836eeb01','2023-01-12 18:08:44'),(36,1,'373cee23940afbbdd199fd200566975d6bb5563335948c42748ecb26337b5553','2023-01-13 17:08:31'),(37,1,'8ef98b5aebef92d7ce53eb6729cdaed5b4d4b5f54568be9dc95aba58d38091e0','2023-01-13 17:09:07'),(38,1,'04b3cb77dba545072c694d45ada5ca3170f6cfe109597bcdce1399c116f2aa0c','2023-01-13 18:14:54'),(39,1,'a7999d067df706b4465f60ffa9bac5269f9ce0ffd7bfa959eaacb71fe5a361c4','2023-01-15 15:32:11');
 /*!40000 ALTER TABLE `client_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +160,7 @@ CREATE TABLE `menu_item_images` (
 
 LOCK TABLES `menu_item_images` WRITE;
 /*!40000 ALTER TABLE `menu_item_images` DISABLE KEYS */;
-INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11'),(10,6,'58ce7651f4214e3797ffddc17fab88cd.png','chicken burger picture','2023-01-02 11:48:51'),(11,7,'18f945ecd8f3447db86eff5ce727c47f.jpeg','kani roll picture','2023-01-02 13:56:47'),(12,8,'76c2d9a59afa45a3ab8ae3bfeec2ab5a.jpeg','hot roll picture','2023-01-02 14:00:02'),(13,9,'0bff11d2d0dd48bb95bcb5a228f2430a.jpeg','temaki picture','2023-01-02 14:03:25'),(14,10,'826ae57a3be7461c90635ed3bba9f587.png','pepperoni pizza picture','2023-01-02 16:06:25'),(15,11,'607a18c89e6541fd8486f13d7f8fd231.png','hawaiian pizza picture','2023-01-02 16:08:06'),(16,12,'03cd452be63c4d0aab8f4a09130a8370.png','cheese pizza picture','2023-01-02 16:09:39');
+INSERT INTO `menu_item_images` VALUES (8,5,'f040fde7b9e84bd891168c31e83aa516.png','cheeseburger picture','2022-12-26 21:27:58'),(9,3,'6ace46a6c0944212adda3a1e3c761ead.png','bacon cheeseburger picture','2022-12-28 11:34:11'),(10,6,'58ce7651f4214e3797ffddc17fab88cd.png','chicken burger picture','2023-01-02 11:48:51'),(11,7,'6d5fae377d9b43dead7aa8f3ea4df26b.png','kani roll picture','2023-01-02 13:56:47'),(12,8,'d96c1bc091bc42ab816e500af7d82a59.png','hot roll picture','2023-01-02 14:00:02'),(13,9,'0bff11d2d0dd48bb95bcb5a228f2430a.jpeg','temaki picture','2023-01-02 14:03:25'),(14,10,'826ae57a3be7461c90635ed3bba9f587.png','pepperoni pizza picture','2023-01-02 16:06:25'),(15,11,'607a18c89e6541fd8486f13d7f8fd231.png','hawaiian pizza picture','2023-01-02 16:08:06'),(16,12,'03cd452be63c4d0aab8f4a09130a8370.png','cheese pizza picture','2023-01-02 16:09:39');
 /*!40000 ALTER TABLE `menu_item_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `order_items` (
   KEY `order_items_FK_1` (`menu_item_id`),
   CONSTRAINT `order_items_FK` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_items_FK_1` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +217,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES (3,2,3),(4,2,5),(22,12,3),(23,12,5),(24,13,3);
+INSERT INTO `order_items` VALUES (3,2,3),(4,2,5),(22,12,3),(23,12,5),(25,14,3),(26,14,5),(43,25,3),(44,25,6),(45,26,5),(46,26,3);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +240,7 @@ CREATE TABLE `orders` (
   KEY `orders_FK_1` (`restaurant_id`),
   CONSTRAINT `orders_FK` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `orders_FK_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (2,1,4,1,1,'2022-12-26 21:29:03'),(12,1,4,1,1,'2023-01-09 16:46:18'),(13,1,4,0,0,'2023-01-12 15:51:12');
+INSERT INTO `orders` VALUES (2,1,4,1,1,'2022-12-26 21:29:03'),(12,1,4,1,1,'2023-01-09 16:46:18'),(14,1,4,0,0,'2023-01-12 17:12:43'),(15,1,4,0,0,'2023-01-12 17:48:55'),(16,1,4,0,0,'2023-01-12 17:50:03'),(25,1,4,1,1,'2023-01-12 18:10:06'),(26,1,4,0,0,'2023-01-12 18:12:50');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `restaurant_images` (
 
 LOCK TABLES `restaurant_images` WRITE;
 /*!40000 ALTER TABLE `restaurant_images` DISABLE KEYS */;
-INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56'),(6,6,'8dc1780e3be64614a6bae1435f127860.png','profile','2023-01-02 13:53:10'),(7,7,'f6851ccb4256429da9573f8a38cb195e.png','profile','2023-01-02 16:14:45');
+INSERT INTO `restaurant_images` VALUES (1,4,'06701219514349deabb9666f56d64d9b.png','profile','2022-12-23 11:21:56'),(6,6,'3e8dc575a70d4c7ea3f5938acc938277.png','profile','2023-01-02 13:53:10'),(7,7,'f6851ccb4256429da9573f8a38cb195e.png','profile','2023-01-02 16:14:45');
 /*!40000 ALTER TABLE `restaurant_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1210,6 +1210,27 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_client_token` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_client_token`(token_input varchar(100))
+begin
+	select token
+	from client_session
+	where token = token_input;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_image` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1466,4 +1487,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-12 17:10:04
+-- Dump completed on 2023-01-15 15:52:18
