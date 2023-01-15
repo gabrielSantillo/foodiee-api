@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order, endpoints.restaurant_order, endpoints.client_restaurant
+import endpoints.client, endpoints.client_login, endpoints.restaurant, endpoints.restaurant_login, endpoints.restaurant_images, endpoints.menu_item, endpoints.menu_item_images, endpoints.client_order, endpoints.restaurant_order, endpoints.client_restaurant, endpoints.client_token_validation
 from flask_cors import CORS
 
 # calling the Flask function which will return a value that will be used in my API
@@ -34,6 +34,10 @@ def post_client_login():
 def delete_client_token():
     return endpoints.client_login.delete()
 
+############### CLIENT TOKEN VALIDATION ###############
+@app.get('/api/client-token')
+def get_client_token():
+    return endpoints.client_token_validation.get()
 
 ############### RESTAURANT ###############
 @app.post('/api/restaurant')
